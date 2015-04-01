@@ -1,0 +1,15 @@
+
+HOW MUCH IT RAINED ?
+2 MEASUREMENTS WHICH ARE NEEDED TO BE COMPARED.
+They are : Radar and Gauge measures.
+More precise is Gauge due to less errors as compared to Radar.
+
+DOPPLER VELOCITY: Varying velocity of the waves in the water…I guess, not sure.
+-	there are two radars that observe the atmosphere above the rain gauge.
+HYDRO-METEOR: PRECIPITATES, formed because of water vapour condensation.
+DATA:
+Train – 11,26,934                         Test- 6,30,521
+
+More look into the Data Pattern:
+TimeToEnd is given in random order which I assumed to be only in decreasing order.
+DistanceToRadar varies sometimes for the same radar observation but varying time, which I assumed to be constant as seen most of the times.
