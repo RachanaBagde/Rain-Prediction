@@ -20,3 +20,4 @@
  dt_test[,NewRadarIndicator:=TimeToEndInversion | NewDistanceToRadar]
  
  test <- dt_test[,RadarSeries := cumsum(NewRadarIndicator),by=Id]
+
