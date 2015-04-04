@@ -37,3 +37,13 @@
 #new radar sequence starts.
 
 #dt[,NewRadarIndicator:=TimeToEndInversion | NewDistanceToRadar]
+
+
+
+##############################################################################################################################
+
+# Get the mean of reflectivity of same Radar i.e having same RadarSeries for an Id.
+
+train <- train[,Mean:=mean(Reflectivity),by=c("Id","RadarSeries")]
+test <- test[,Mean:=mean(Reflectivity),by=c("Id","RadarSeries")]
+
