@@ -21,6 +21,5 @@
     dtf$Zdr[dtf$Zdr==-99900]<- -7.875
     dtf$Zdr[dtf$Zdr==-99903|dtf$Zdr==-99901]<- 1.334
     
-    dtf <- na.omit(dtf)
 
 
