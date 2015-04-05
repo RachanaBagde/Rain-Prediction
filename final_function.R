@@ -6,19 +6,19 @@ library(data.table)
 function(x){
 x <- fread("train.csv")
 
-colsToSplit = colnames(train)[2:19]
-split = cSplit(train,splitCols=colsToSplit,sep=" ",direction="long", fixed=FALSE, makeEqual = FALSE)
+colsToSplit = colnames(x)[2:19]
+split = cSplit(x,splitCols=colsToSplit,sep=" ",direction="long", fixed=FALSE, makeEqual = FALSE)
 
- dt = data.table(split)
- setkey(dt,Id)
+ dtf = data.table(split)
+ setkey(dtf,Id)
  
- dt[,TimeToEndInversion:=c(1,(sign(diff(TimeToEnd))+1)/2),by=Id]
- dt[,NewDistanceToRadar:=c(1,abs(sign(diff(DistanceToRadar)))),by=Id]
- dt[,NewRadarIndicator:=TimeToEndInversion | NewDistanceToRadar]
+ dtf[,TimeToEndInversion:=c(1,(sign(diff(TimeToEnd))+1)/2),by=Id]
+ dtf[,NewDistanceToRadar:=c(1,abs(sign(diff(DistanceToRadar)))),by=Id]
+ dtf[,NewRadarIndicator:=TimeToEndInversion | NewDistanceToRadar]
  
- train <- dt[,RadarSeries := cumsum(NewRadarIndicator),by=Id]
+ dtf <- dtf[,RadarSeries := cumsum(NewRadarIndicator),by=Id]
 
- train <- train[,Mean:=mean(Reflectivity),by=c("Id","RadarSeries")]
+ dtf <- dtf[,Mean:=mean(Reflectivity),by=c("Id","RadarSeries")]
  
  dtf$Composite[dtf$Composite==-99900] <- -14
     dtf$HybridScan[dtf$HybridScan==-99900] <- -14
@@ -52,7 +52,7 @@ split = cSplit(train,splitCols=colsToSplit,sep=" ",direction="long", fixed=FALSE
     dtf %>% group_by(Id) %>%
     filter(Mean==max(Mean))
     
-    model_x <-lm(Expected~.,data=x)
+    model_x <-lm(Expected~.,data=dtf)
     summary(model_x)
 
 
