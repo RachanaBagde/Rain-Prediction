@@ -3,8 +3,8 @@ library(splitstackshape)
 library(data.table)
 
 
-function(x){
-x <- fread("train.csv")
+summary<- function(x){
+x <- fread("train_2013_2.csv")
 
 colsToSplit = colnames(x)[2:19]
 split = cSplit(x,splitCols=colsToSplit,sep=" ",direction="long", fixed=FALSE, makeEqual = FALSE)
@@ -53,7 +53,7 @@ split = cSplit(x,splitCols=colsToSplit,sep=" ",direction="long", fixed=FALSE, ma
     filter(Mean==max(Mean))
     
     model_x <-lm(Expected~.,data=dtf)
-    summary(model_x)
+    return(summary(model_x))
 
 
 
