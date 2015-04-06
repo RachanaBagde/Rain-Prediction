@@ -1,6 +1,9 @@
 
-mat <- matrix(0,nrow=nrow(test),ncol=72)
-colnames(nat)<-c("Id","Expected","Predicted0","Predicted1","Predicted2","Predicted3","Predicted4","Predicted5","Predicted6","Predicted7","Predicted8","Predicted9","Predicted10","Predicted11","Predicted12","Predicted13","Predicted14","Predicted15","Predicted16","Predicted17","Predicted18","Predicted19","Predicted20","Predicted21","Predicted22","Predicted23","Predicted24","Predicted25","Predicted26","Predicted27","Predicted28","Predicted29","Predicted30","Predicted31","Predicted32","Predicted33","Predicted34","Predicted35","Predicted36","Predicted37","Predicted38","Predicted39","Predicted40","Predicted41","Predicted42","Predicted43","Predicted44","Predicted45","Predicted46","Predicted47","Predicted48","Predicted49","Predicted50","Predicted51","Predicted52","Predicted53","Predicted54","Predicted55","Predicted56","Predicted57","Predicted58","Predicted59","Predicted60","Predicted61","Predicted62","Predicted63","Predicted64","Predicted65","Predicted66","Predicted67","Predicted68","Predicted69")
+ 
+ submit <-function(test)
+ {
+ mat <- matrix(0,nrow=nrow(test),ncol=72)
+ colnames(mat)<-c("Id","Expected","Predicted0","Predicted1","Predicted2","Predicted3","Predicted4","Predicted5","Predicted6","Predicted7","Predicted8","Predicted9","Predicted10","Predicted11","Predicted12","Predicted13","Predicted14","Predicted15","Predicted16","Predicted17","Predicted18","Predicted19","Predicted20","Predicted21","Predicted22","Predicted23","Predicted24","Predicted25","Predicted26","Predicted27","Predicted28","Predicted29","Predicted30","Predicted31","Predicted32","Predicted33","Predicted34","Predicted35","Predicted36","Predicted37","Predicted38","Predicted39","Predicted40","Predicted41","Predicted42","Predicted43","Predicted44","Predicted45","Predicted46","Predicted47","Predicted48","Predicted49","Predicted50","Predicted51","Predicted52","Predicted53","Predicted54","Predicted55","Predicted56","Predicted57","Predicted58","Predicted59","Predicted60","Predicted61","Predicted62","Predicted63","Predicted64","Predicted65","Predicted66","Predicted67","Predicted68","Predicted69")
  mat$Id<-test$Id
  mat$Expected<-test$Expected
  mat$Predicted0[mat$Expected==0]<-1
@@ -77,17 +80,21 @@ colnames(nat)<-c("Id","Expected","Predicted0","Predicted1","Predicted2","Predict
 
  mat_l <- summarise(group_by(mat,Id),length=length(Id))
 
- mat_f <- mat_f %>% group_by(Id) %>% summarise_each(funs(sum))
+ mat <- mat %>% group_by(Id) %>% summarise_each(funs(sum))
  
- mat_f$length <- mat_l$length
- 
+ mat$length <- mat_l$length
+ mat_f <- mat
  mat_f <- mat_f[-c(1,ncol(df))]/mat_f$length
  mat_f$Expected <- NULL
  mat_f$length <- NULL
 
  mat_f <-with(mat_f, cbind(Id, mat_f[!names(mat_f) %in% c("Id", "length")]/length, length))
  
- mat_ff$Expected <-NULL
- mat_ff$length <-NULL
-
-
+ mat_f$Expected <-NULL
+ mat_f$length <-NULL
+ return(mat_f)
+ }
+ 
+ test<-fread("test_predicted_1.csv")
+ mat_f <-submit(test)
+ write.csv(data.frame(mat_f),file="Submission_1",row.names=FALSE)
