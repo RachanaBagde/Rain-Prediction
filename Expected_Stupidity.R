@@ -80,3 +80,8 @@ colnames(nat)<-c("Id","Expected","Predicted0","Predicted1","Predicted2","Predict
  mat_f <- mat_f %>% group_by(Id) %>% summarise_each(funs(sum))
  
  mat_f$length <- mat_l$length
+ 
+ mat_f <- mat_f[-c(1,ncol(df))]/mat_f$length
+ mat_f$Expected <- NULL
+ mat_f$length <- NULL
+
