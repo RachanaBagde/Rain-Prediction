@@ -2,9 +2,9 @@ library(reshape2)
 library(splitstackshape)
 library(data.table)
 
+train<- fread("train_2013_2.csv")
+sum<- function(x){
 
-summary<- function(x){
-x <- fread("train_2013_2.csv")
 
 colsToSplit = colnames(x)[2:19]
 split = cSplit(x,splitCols=colsToSplit,sep=" ",direction="long", fixed=FALSE, makeEqual = FALSE)
@@ -59,3 +59,4 @@ split = cSplit(x,splitCols=colsToSplit,sep=" ",direction="long", fixed=FALSE, ma
 
 
 }
+sum(train)
