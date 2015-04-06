@@ -52,7 +52,7 @@ split = cSplit(x,splitCols=colsToSplit,sep=" ",direction="long", fixed=FALSE, ma
     dtf %>% group_by(Id) %>%
     filter(Mean==max(Mean))
     
-    model_x <-lm(Expected~.,data=dtf)
+    model_x<-lm(Expected~Id+DistanceToRadar+Composite+HybridScan+HydrometeorType+RR1+RR3+RadarQualityIndex+RhoHV+RadarSeries+Mean,data=dtf)
     return(summary(model_x))
 
 
