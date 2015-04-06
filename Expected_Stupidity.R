@@ -86,5 +86,8 @@ colnames(nat)<-c("Id","Expected","Predicted0","Predicted1","Predicted2","Predict
  mat_f$length <- NULL
 
  mat_f <-with(mat_f, cbind(Id, mat_f[!names(mat_f) %in% c("Id", "length")]/length, length))
+ 
+ mat_ff$Expected <-NULL
+ mat_ff$length <-NULL
 
 
