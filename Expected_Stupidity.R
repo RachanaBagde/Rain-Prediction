@@ -73,3 +73,10 @@ colnames(nat)<-c("Id","Expected","Predicted0","Predicted1","Predicted2","Predict
 > mat$Predicted67[mat$Expected==67]<-1
 > mat$Predicted68[mat$Expected==68]<-1
 > mat$Predicted69[mat$Expected>69]<-1
+
+
+ mat_l <- summarise(group_by(mat,Id),length=length(Id))
+
+ mat_f <- mat_f %>% group_by(Id) %>% summarise_each(funs(sum))
+ 
+ mat_f$length <- mat_l$length
