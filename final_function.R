@@ -3,7 +3,7 @@ library(splitstackshape)
 library(data.table)
 
 train<- fread("train_2013_2.csv")
-sum<- function(x){
+mod<- function(x){
 
 
 colsToSplit = colnames(x)[2:19]
@@ -53,10 +53,10 @@ split = cSplit(x,splitCols=colsToSplit,sep=" ",direction="long", fixed=FALSE, ma
     filter(Mean==max(Mean))
     
     model_x<-lm(Expected~Id+DistanceToRadar+Composite+HybridScan+HydrometeorType+RR1+RR3+RadarQualityIndex+RhoHV+RadarSeries+Mean,data=dtf)
-    return(summary(model_x))
+    return(model_x)
 
 
 
 
 }
-sum(train)
+final_model <-mod(train)
