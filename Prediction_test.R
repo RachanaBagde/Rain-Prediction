@@ -53,7 +53,10 @@ split = cSplit(x,splitCols=colsToSplit,sep=" ",direction="long", fixed=FALSE, ma
     filter(Mean==max(Mean))
     
     dtf$Expected <- predict(final_model,dtf)
-    submit <- data.frame (Id = dtf$Id,Expected = dtf$Expected)
+    return(data.frame (Id = dtf$Id,Expected = dtf$Expected))
 
 }
 
+test<- fread("test_2014_1.csv")
+submit <- p(test,final_model)
+write.csv(submit, file = "test_predicted_1.csv", row.names=FALSE)
