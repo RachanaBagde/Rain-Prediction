@@ -97,4 +97,4 @@
  
  test<-fread("test_predicted_1.csv")
  mat_f <-submit(test)
- write.csv(data.frame(mat_f),file="Submission_1",row.names=FALSE)
+ write.csv(data.frame(mat_f),file="Submission_1.csv",row.names=FALSE)
